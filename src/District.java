@@ -32,6 +32,7 @@ public class District {
         getIncidents().add(i);
     }
 
+    @Override
     public String toString(){
         return "District name:\t" + getName() + "\n"
                 + "Incidents:\t\n" + getIncidents() + "\n";
