@@ -46,4 +46,15 @@ public class Reporting {
         }
         return Collections.max(temp, Comparator.comparing(Incident::getValue));
     }
+
+    public ArrayList<District> filterGreaterThan(int value) {
+        ArrayList<District> filter = new ArrayList<>();
+
+        for(int i = 0; i < getDistricts().size(); i++){
+            filter.add(new District(getDistricts().get(i).getName()));
+            filter.get(i).setIncidents(getDistricts().get(i).filterGreaterThan(value));
+        }
+
+        return filter;
+    }
 }
