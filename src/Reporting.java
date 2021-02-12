@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 
 public class Reporting {
 
@@ -36,5 +37,13 @@ public class Reporting {
             }
         }
         return null;
+    }
+
+    public Incident highestValueEver() {
+        ArrayList<Incident> temp = new ArrayList<>();
+        for (District d : getDistricts()) {
+            temp.add(d.highestValue());
+        }
+        return Collections.max(temp, Comparator.comparing(Incident::getValue));
     }
 }
