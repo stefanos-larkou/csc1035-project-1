@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class District {
 
@@ -33,5 +35,9 @@ public class District {
     public String toString(){
         return "District name:\t" + getName() + "\n"
                 + "Incidents:\t\n" + getIncidents() + "\n";
+    }
+
+    public Incident highestValue(){
+        return Collections.max(getIncidents(), Comparator.comparing(Incident::getValue));
     }
 }
