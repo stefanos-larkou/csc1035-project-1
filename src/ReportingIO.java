@@ -36,7 +36,8 @@ public class ReportingIO {
             switch (choice) {
                 case 1 -> recordDistrict(r);
                 case 2 -> addToDistrict(recordIncident(months), r);
-                case 3 -> {
+                case 3 -> reportLargestAverage(r);
+                case 4 -> {
                     System.out.println("Quitting...");
                     quit = true;
                 }
@@ -49,8 +50,10 @@ public class ReportingIO {
         System.out.println("""
                 1: Add a district.
                 2: Add an incident.
-                3: Quit program.
-              
+                3: Report: District with largest average value incident for selected year 
+                   (will return first found if more than one).
+                4: Quit program.
+                              
                 """);
     }
 
@@ -129,5 +132,69 @@ public class ReportingIO {
         else{
             System.out.println("Updated district data:\n" + temp);
         }
+    }
+
+    private void reportLargestAverage(Reporting r) {
+        Scanner sc = new Scanner(System.in);
+
+        boolean b = checkNullIncident(r), b2 = checkNullDistrict(r);
+
+        if (b && b2) {
+            System.out.println("Enter year for report: ");
+            int year = sc.nextInt();
+
+            boolean exists = false;
+
+            for (District d : r.getDistricts()) {
+                for (Incident i : d.getIncidents()) {
+                    if (i.getYear() == year) {
+                        exists = true;
+                        break;
+                    }
+                }
+            }
+
+            if (exists) {
+                System.out.println("District with the largest average value " +
+                        "of goods stolen for year " + year + ": " +
+                        r.largestAverage(year).getName() + "\n");
+            }
+            else {
+                System.out.println("No incidents were reported that year.\n");
+            }
+        }
+        else if(!checkNullDistrict(r) && !checkNullIncident(r)){
+            noDistricts();
+        }
+        else if(!checkNullIncident(r)) {
+            noIncidents();
+        }
+    }
+
+    private boolean checkNullIncident(Reporting r){
+        boolean b = false;
+        for (District d : r.getDistricts()) {
+            for(Incident i: d.getIncidents()){
+                if (i != null) {
+                    b = true;
+                    break;
+                }
+            }
+        }
+        return b;
+    }
+
+    private boolean checkNullDistrict(Reporting r){
+
+        return r.getDistricts().size() != 0;
+    }
+
+    private void noIncidents(){
+        System.out.println("There are no reported incidents in any" +
+                " district.\n");
+    }
+
+    private void noDistricts(){
+        System.out.println("There are no districts.\n");
     }
 }
