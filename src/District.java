@@ -52,4 +52,14 @@ public class District {
 
         return (double)sum / getIncidents().size();
     }
+
+    public ArrayList<Incident> filterGreaterThan(int value){
+        ArrayList<Incident> filter = new ArrayList<>();
+        for (Incident i: getIncidents()) {
+            if (value < i.getValue()) {
+                filter.add(i);
+            }
+        }
+        return filter;
+    }
 }
