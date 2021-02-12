@@ -40,4 +40,16 @@ public class District {
     public Incident highestValue(){
         return Collections.max(getIncidents(), Comparator.comparing(Incident::getValue));
     }
+
+    public double averageValue(int year){
+        int sum = 0;
+
+        for (Incident incident : getIncidents()) {
+            if(incident.getYear() == year) {
+                sum += incident.getValue();
+            }
+        }
+
+        return (double)sum / getIncidents().size();
+    }
 }
