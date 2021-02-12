@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -41,7 +42,8 @@ public class ReportingIO {
                 case 5 -> reportGreaterValue(r);
                 case 6 -> displayAllDistrictNames(r);
                 case 7 -> displayAllIncidents(r);
-                case 8 -> {
+                case 8 -> displayDistrictIncidents(r);
+                case 9 -> {
                     System.out.println("Quitting...");
                     quit = true;
                 }
@@ -60,7 +62,8 @@ public class ReportingIO {
                 5: Report: all incidents with value greater than a given amount.
                 6: Display all district names.
                 7: Display all incidents in their respective districts.
-                8: Quit program.
+                8: Display all incidents recorded in selected district.
+                9: Quit program.
                               
                 """);
     }
@@ -235,6 +238,34 @@ public class ReportingIO {
         else if(!checkNullIncident(r)){
             noIncidents();
         }
+    }
+
+    private void displayDistrictIncidents(Reporting r){
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Select district: ");
+        String name = sc.nextLine();
+
+        boolean b = false;
+        ArrayList<Incident> temp = null;
+
+        for(District d: r.getDistricts()){
+            if(name.equals(d.getName())){
+                b = true;
+                temp = d.getIncidents();
+                break;
+            }
+        }
+
+        if(b){
+            for(Incident i: temp){
+                System.out.println(i);
+            }
+        }
+        else{
+            System.out.println("District doesn't exist.");
+        }
+        System.out.println("\n");
     }
 
     private boolean checkNullIncident(Reporting r){
