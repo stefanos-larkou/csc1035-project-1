@@ -6,7 +6,7 @@ public class Reporting {
 
     private ArrayList<District> districts;
 
-    public Reporting(ArrayList<District> districts) {
+    public Reporting() {
         this.districts = new ArrayList<>();
     }
 
