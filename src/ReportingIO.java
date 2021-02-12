@@ -38,7 +38,8 @@ public class ReportingIO {
                 case 2 -> addToDistrict(recordIncident(months), r);
                 case 3 -> reportLargestAverage(r);
                 case 4 -> reportHighestValue(r);
-                case 5 -> {
+                case 5 -> reportGreaterValue(r);
+                case 6 -> {
                     System.out.println("Quitting...");
                     quit = true;
                 }
@@ -54,7 +55,8 @@ public class ReportingIO {
                 3: Report: District with largest average value incident for selected year 
                    (will return first found if more than one).
                 4: Report: Highest value incident ever reported.
-                5: Quit program.
+                5: Report: all incidents with value greater than a given amount.
+                6: Quit program.
                               
                 """);
     }
@@ -176,6 +178,25 @@ public class ReportingIO {
             System.out.println("Highest value incident ever reported: \n" +
                     r.highestValueEver());
 
+        }
+        else if(!checkNullIncident(r) && !checkNullDistrict(r)){
+            noDistricts();
+        }
+        else if(!checkNullIncident(r)){
+            noIncidents();
+        }
+    }
+
+    private void reportGreaterValue(Reporting r){
+        Scanner sc = new Scanner(System.in);
+
+
+        if(checkNullIncident(r) && checkNullDistrict(r)) {
+            System.out.println("Enter value to filter by: ");
+            int value = sc.nextInt();
+
+            System.out.println(r.filterGreaterThan(value));
+            System.out.println("\n");
         }
         else if(!checkNullIncident(r) && !checkNullDistrict(r)){
             noDistricts();
