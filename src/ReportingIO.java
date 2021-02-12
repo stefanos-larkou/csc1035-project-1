@@ -39,7 +39,8 @@ public class ReportingIO {
                 case 3 -> reportLargestAverage(r);
                 case 4 -> reportHighestValue(r);
                 case 5 -> reportGreaterValue(r);
-                case 6 -> {
+                case 6 -> displayAllDistrictNames(r);
+                case 7 -> {
                     System.out.println("Quitting...");
                     quit = true;
                 }
@@ -56,7 +57,8 @@ public class ReportingIO {
                    (will return first found if more than one).
                 4: Report: Highest value incident ever reported.
                 5: Report: all incidents with value greater than a given amount.
-                6: Quit program.
+                6: Display all district names.
+                7: Quit program.
                               
                 """);
     }
@@ -203,6 +205,18 @@ public class ReportingIO {
         }
         else if(!checkNullIncident(r)){
             noIncidents();
+        }
+    }
+
+    private void displayAllDistrictNames(Reporting r){
+        if(checkNullDistrict(r)) {
+            for (District d : r.getDistricts()) {
+                System.out.println(d.getName());
+            }
+            System.out.println("\n");
+        }
+        else{
+            noDistricts();
         }
     }
 
