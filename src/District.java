@@ -94,14 +94,16 @@ public class District {
 
     public double averageValue(int year){
         int sum = 0;
+        int counter = 0;
 
         for (Incident incident : getIncidents()) {
             if(incident.getYear() == year) {
                 sum += incident.getValue();
+                counter += 1;
             }
         }
 
-        return (double)sum / getIncidents().size();
+        return (double)sum / counter;
     }
 
     /**
